@@ -143,4 +143,5 @@ class administrador
             echo "Error al guardar" . $e->getMessage();
         }
     }
+
 }
