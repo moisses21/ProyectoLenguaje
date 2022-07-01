@@ -27,7 +27,7 @@ class administrador
         return $this->nombres;
     }
 
-    public function setNombres( string $nombres)
+    public function setNombres(string $nombres)
     {
         $this->nombres = $nombres;
     }
@@ -103,14 +103,44 @@ class administrador
     public function InsertarAdmin()
     {
         $conexion = new Conexion();
-        try{
+        try {
             $conn = $conexion->abrir();
-            $sql = "SELECT * FROM administrador WHERE administrador".$this->username;
+            $sql = "INSERT INTO administrador(idadmin,nombres,apellidos,dni,telefono,username,password,id_respoonsable) 
+                    VALUES('this->idadmin','this->nombres','this->apellidos','this->dni','this->telefono','this->usermame','this->password','this->id_responsable')";
+            $resultados = $conn->exec($sql);
+            $conexion->cerrar();
+            return $resultados;
+        } catch (PDOException $e) {
+            echo "Hubo un error al insertar " . $e->getMessage();
+        }
+    }
+
+    public function Mostrar()
+    {
+        $conexion = new Conexion();
+        try {
+            $conn = $conexion->abrir();
+            $sql = "SELECT * FROM responsable";
             $resultados = $conn->query($sql);
             $conexion->cerrar();
             return $resultados;
+        } catch (PDOException $e) {
+            echo "Error en mostrar" . $e->getMessage();
+        }
+    }
+
+   public function guardar()
+    {
+        $conexion = new Conexion();
+        try {
+            $conn = $conexion->abrir();
+            $sql = "INSERT INTO destinoturis(iddestinoturis,nombrer_ciu,cod_postal,establecimientos) 
+                    VALUES('this->iddestinoturis','this->nombre_ciu','this->cod_postal','this->establecimientos')";
+            $resultados = $conn->exec($sql);
+            $conexion->cerrar();
+            return $resultados;
         }   catch (PDOException $e){
-            echo "Hubo un error: ".$e->getMessage();
+            echo "Error al guardar" . $e->getMessage();
         }
     }
 }
